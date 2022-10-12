@@ -8,7 +8,7 @@ def generate_launch_description():
             package='tf2_ros',
             executable='static_transform_publisher',
             name='static_odom_publisher',
-            arguments = ["0", "0", "0", "0", "0", "0", "odom", "laser"],
+            arguments = ["0", "0", "0", "0", "0", "0", "world", "odom"],
             output = 'screen',
         ),
         Node(
@@ -17,7 +17,7 @@ def generate_launch_description():
             name='pose_to_tf',
             parameters=[
                 {'parent_frame': 'odom'},
-                {'child_frame': 'laser'},
+                {'child_frame': 'base_link'},
                 {'pose_topic': 'laser_pose'},],
             output = 'screen',
         ),

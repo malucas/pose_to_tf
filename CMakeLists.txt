@@ -27,6 +27,11 @@ ament_target_dependencies(pose_to_tf
   rclcpp geometry_msgs tf2 tf2_ros
 )
 
+add_executable(pose_sim src/pose_sim.cpp)
+ament_target_dependencies(pose_sim
+  rclcpp geometry_msgs 
+)
+
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   # the following line skips the linter which checks for copyrights
@@ -40,6 +45,7 @@ endif()
 
 install(TARGETS
   pose_to_tf
+  pose_sim
   DESTINATION lib/${PROJECT_NAME})
 
 install(DIRECTORY launch

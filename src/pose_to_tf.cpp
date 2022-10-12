@@ -23,7 +23,7 @@ public:
     {
         // Declare and acquire `turtlename` parameter
         parent_frame_ = this->declare_parameter<std::string>("parent_frame", "odom");
-        child_frame_ = this->declare_parameter<std::string>("child_frame", "laser_link");
+        child_frame_ = this->declare_parameter<std::string>("child_frame", "base_link");
         pose_topic_ = this->declare_parameter<std::string>("pose_topic", "laser_pose");
 
         // Initialize reset time
@@ -59,6 +59,8 @@ private:
         t.transform.rotation.y = msg->pose.orientation.y;
         t.transform.rotation.z = msg->pose.orientation.z;
         t.transform.rotation.w = msg->pose.orientation.w;
+
+        tf_broadcaster_->sendTransform(t);
     }
 
     void timer_callback()
@@ -80,6 +82,8 @@ private:
             t.transform.rotation.y = 0.0;
             t.transform.rotation.z = 0.0;
             t.transform.rotation.w = 1.0;
+
+            tf_broadcaster_->sendTransform(t);
         }
 
         count_++;
